@@ -64,7 +64,7 @@ main {
   position: relative;
   background: transparent;
   overflow: hidden;
-  width: 24rem;
+  width: 48rem;
   height: 30rem;
   padding: 2rem;
 }
@@ -90,10 +90,10 @@ main:after {
   display: block;
   z-index: -1;
   position: absolute;
-  top: -21%;
-  left: calc(-12rem + 0.5%);
+  top: -41%;
+  left: calc(-21%);
   aspect-ratio: 1/1;
-  height: 141%;
+  width: 141%;
   transition: --color1 .5s, --color2 .5s;
   background: linear-gradient(var(--color1), var(--color2));
   animation: rotate-gradient linear 4s infinite;

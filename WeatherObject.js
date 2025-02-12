@@ -43,6 +43,7 @@ export default class WeatherObject {
 
   /** @param {RawWeatherObject} rawData */
   constructor(rawData) {
+    console.log(rawData);
     this.#innerObject = rawData;
     this.#today = this.#innerObject.days[0];
   }
@@ -74,7 +75,7 @@ export default class WeatherObject {
   getRisk() {
     const ref = this.#today.severerisk;
     if (ref <= 30) return 'low';
-    else if (ref < 70) return 'medium';
+    else if (ref < 70) return 'moderate';
     else return 'high';
   }
 
@@ -107,16 +108,26 @@ export default class WeatherObject {
 
 };
 
-const COLOR_MAP = {
-  ['snow']: ['#b5d0de', '#f3f3ff'],
-  ['rain']: ['#363744', '#73838b'],
-  ['fog']: ['#c7c7c7', '#d4dbde'],
-  ['wind']: ['#b9eed1', '#d5e5eb'],
-  ['cloudy']: ['#ddd', '#a6a6a6'],
-  ['partly-cloudy-day']: ['#6fd4ff', '#ddd'],
-  ['partly-cloudly-night']: ['#434346', '#07000e'],
-  ['clear-day']: ['#6fd4ff', '#c2ffeb'],
-  ['clear-night']: ['#50558a', '#07000e'],
-};
+/** @param {[string, string]} colors
+ * @param {string} status  */
+function Register(colors, status) {
+  this.colors = colors;
+  this.status = status;
+}
 
-export { COLOR_MAP };
+/** @type {Map<string, Register>} */
+const STATUS_MAP = new Map(Object.entries(
+  {
+    ['snow']: new Register(['#b5d0de', '#f3f3ff'], 'Snow'),
+    ['rain']: new Register(['#363744', '#73838b'], 'Rain'),
+    ['fog']: new Register(['#c7c7c7', '#d4dbde'], 'Foggy'),
+    ['wind']: new Register(['#b9eed1', '#d5e5eb'], 'Windy'),
+    ['cloudy']: new Register(['#ddd', '#a6a6a6'], 'Cloudy'),
+    ['partly-cloudy-day']: new Register(['#6fd4ff', '#ddd'], 'Partly cloudy'),
+    ['partly-cloudly-night']: new Register(['#434346', '#07000e'], 'Partly cloudy'),
+    ['clear-day']: new Register(['#6fd4ff', '#c2ffeb'], 'Clear'),
+    ['clear-night']: new Register(['#50558a', '#07000e'], 'Clear')
+  }
+));
+
+export { STATUS_MAP, formatDirection };

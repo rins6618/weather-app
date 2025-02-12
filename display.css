@@ -1,0 +1,24 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  user-select: none;
+}
+
+.name, .info {
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  margin-left: auto;
+  align-items: end;
+}
+
+.footer {
+  margin-top: auto;
+}
