@@ -43,6 +43,67 @@ form {
   padding: 0.5rem;
 }
 
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 3rem;
+  height: 1.5rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2196F3;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  content: "Cº";
+  height: 1.5rem;
+  aspect-ratio: 1/1;
+  left: 0;
+  bottom: 0;
+  background-color: white;
+  transition: background-color .1s, transform .2s;
+}
+
+input:checked + .slider {
+  background-color: #f34821;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  content: 'Fº';
+  transform: translateX(1.5rem);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
 @property --color1 {
   syntax: '<color>';
   initial-value: #000;

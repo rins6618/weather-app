@@ -25,10 +25,19 @@ form.addEventListener('submit', async (e) => {
     status: main.querySelector("#status"),
     desc: main.querySelector('#description'),
   }
-  const query = form.querySelector('input');
+  /** @type {HTMLInputElement} */
+  const query = form.querySelector('#query');
+  /** @type {HTMLInputElement} */
+  const unitGroup = form.querySelector('#unit-group');
   const location = query.value;
+  const checkbox = unitGroup.checked;
+  const unit = checkbox.checked ? 'us' : 'metric';
+  const suffixes = {
+    temp: checkbox ? 'ºF' : 'ºC',
+    speed: checkbox ? 'mph' : 'km/h'
+  };
 
-  const queryLink = `${link}/${location}?key=${API_KEY}&unitGroup=metric`;
+  const queryLink = `${link}/${location}?key=${API_KEY}&unitGroup=${unit}`;
   const response = await fetch(queryLink, { mode: 'cors' });
 
   /** @type {import("./WeatherObject").RawWeatherObject} */
@@ -58,10 +67,10 @@ form.addEventListener('submit', async (e) => {
   nameDOM.mainAddr.textContent = first + ',';
   nameDOM.secondaryAddr.textContent = rest.join(',');
 
-  infoDOM.temp.textContent = `${temp}ºC`;
-  infoDOM.feelslike.textContent = `Feels like ${feelslike}ºC`;
+  infoDOM.temp.textContent = `${temp}${suffixes.temp}`;
+  infoDOM.feelslike.textContent = `Feels like ${feelslike}${suffixes.temp}`;
   infoDOM.humidity.textContent = `Humidity: ${weatherObject.getHumidity()}%`;
-  infoDOM.wind.textContent = `Wind: ${windSpeed}km/h ${formatDirection(windDir)} (${windDir}º)`;
+  infoDOM.wind.textContent = `Wind: ${windSpeed}${suffixes.speed} ${formatDirection(windDir)} (${windDir}º)`;
 
   descDOM.desc.textContent = weatherObject.getDescription();
   descDOM.status.textContent = STATUS_MAP.get(icon)?.status || 'Error';
